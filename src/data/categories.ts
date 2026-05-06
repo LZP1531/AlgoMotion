@@ -1,0 +1,68 @@
+import type { Category } from "../types/content";
+
+export const categories: Category[] = [
+  {
+    id: "arrays",
+    nameZh: "数组",
+    nameEn: "Arrays",
+    icon: "array",
+    descriptionZh: "双指针、哈希、滑动窗口与原地变换。",
+    descriptionEn: "Pointers, hashing, sliding windows, and in-place transforms.",
+  },
+  {
+    id: "linked-list",
+    nameZh: "链表",
+    nameEn: "Linked List",
+    icon: "link",
+    descriptionZh: "指针重连、快慢指针与节点删除。",
+    descriptionEn: "Pointer rewiring, fast-slow pointers, and node deletion.",
+  },
+  {
+    id: "binary-tree",
+    nameZh: "二叉树",
+    nameEn: "Binary Tree",
+    icon: "tree",
+    descriptionZh: "遍历、递归、层序搜索与路径分析。",
+    descriptionEn: "Traversal, recursion, level search, and path analysis.",
+  },
+  {
+    id: "stack",
+    nameZh: "栈",
+    nameEn: "Stack",
+    icon: "stack",
+    descriptionZh: "单调栈、括号匹配与状态回退。",
+    descriptionEn: "Monotonic stacks, bracket matching, and state rollback.",
+  },
+  {
+    id: "queue",
+    nameZh: "队列",
+    nameEn: "Queue",
+    icon: "queue",
+    descriptionZh: "BFS、窗口队列与任务调度。",
+    descriptionEn: "BFS, window queues, and task scheduling.",
+  },
+  {
+    id: "backtracking",
+    nameZh: "回溯",
+    nameEn: "Backtracking",
+    icon: "backtrack",
+    descriptionZh: "选择、撤销选择与搜索树剪枝。",
+    descriptionEn: "Choose, undo, and prune the search tree.",
+  },
+  {
+    id: "greedy",
+    nameZh: "贪心",
+    nameEn: "Greedy",
+    icon: "greedy",
+    descriptionZh: "局部最优选择推动全局结果。",
+    descriptionEn: "Local optimal choices that drive global results.",
+  },
+  {
+    id: "dynamic-programming",
+    nameZh: "动态规划",
+    nameEn: "Dynamic Programming",
+    icon: "dp",
+    descriptionZh: "状态定义、转移方程与表格推导。",
+    descriptionEn: "State design, transitions, and table reasoning.",
+  },
+];
