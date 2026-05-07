@@ -1,0 +1,28 @@
+.treeScene {
+  width: min(100%, 430px);
+}
+
+.treeScene line {
+  stroke: var(--muted);
+  stroke-width: 1.6;
+}
+
+.treeScene circle {
+  fill: var(--panel-strong);
+  stroke: var(--line);
+  stroke-width: 1.4;
+}
+
+.treeScene text {
+  fill: var(--text);
+  font-size: 6px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.active {
+  border-color: rgba(110, 231, 249, 0.7);
+  fill: rgba(110, 231, 249, 0.16);
+  stroke: rgba(110, 231, 249, 0.7);
+}
+

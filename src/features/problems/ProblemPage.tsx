@@ -1,9 +1,9 @@
-import { ArrowLeft, Check, Clipboard, Code2, FileText, Tag } from "lucide-react";
+import { ArrowLeft, Check, Clipboard, Code2, FileText, Maximize2, Minimize2, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 import { Link, useOutletContext, useParams } from "react-router-dom";
-import { type ReactNode, useEffect, useState } from "react";
+import { type PointerEvent, type ReactNode, useEffect, useRef, useState } from "react";
 import { problems } from "../../data/problems";
 import type { Language } from "../../types/content";
 import { getDifficultyLabel } from "../../utils/difficulty";
@@ -88,11 +88,41 @@ export function ProblemPage() {
   const { language } = useOutletContext<OutletContext>();
   const { slug } = useParams();
   const [activeTab, setActiveTab] = useState<"statement" | "solution">("statement");
+  const [visualWidth, setVisualWidth] = useState(62);
+  const [isFocusMode, setIsFocusMode] = useState(false);
+  const studyGridRef = useRef<HTMLDivElement>(null);
   const problem = problems.find((item) => item.slug === slug);
 
   useEffect(() => {
     setActiveTab("statement");
+    setIsFocusMode(false);
+    setVisualWidth(62);
   }, [slug]);
+
+  function startResize(event: PointerEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    setIsFocusMode(false);
+
+    const grid = studyGridRef.current;
+    if (!grid) return;
+
+    const bounds = grid.getBoundingClientRect();
+
+    function handlePointerMove(moveEvent: globalThis.PointerEvent) {
+      const nextWidth = ((moveEvent.clientX - bounds.left) / bounds.width) * 100;
+      setVisualWidth(Math.min(Math.max(nextWidth, 46), 78));
+    }
+
+    function stopResize() {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", stopResize);
+      document.body.classList.remove("is-resizing-study-grid");
+    }
+
+    document.body.classList.add("is-resizing-study-grid");
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", stopResize, { once: true });
+  }
 
   if (!problem) {
     return (
@@ -108,8 +138,23 @@ export function ProblemPage() {
 
   return (
     <section className="problem-page">
-      <div className="study-grid">
+      <div
+        className={`study-grid ${isFocusMode ? "focus-visual" : ""}`}
+        ref={studyGridRef}
+        style={{
+          gridTemplateColumns: isFocusMode ? "minmax(0, 1fr) 8px 56px" : `minmax(480px, ${visualWidth}%) 8px minmax(300px, 1fr)`,
+        }}
+      >
         <VisualizerPanel problem={problem} language={language} />
+        <button
+          className="study-resizer"
+          type="button"
+          onPointerDown={startResize}
+          aria-label={language === "zh" ? "拖动调整动态图和题解宽度" : "Resize animation and explanation panels"}
+          title=""
+        >
+          <span />
+        </button>
         <article className="markdown-panel">
           <div className="panel-header">
             <span>
@@ -122,20 +167,30 @@ export function ProblemPage() {
                   ? "代码答案"
                   : "Solution code"}
             </span>
-            <div className="content-tabs" role="tablist" aria-label="Problem content">
+            <div className="panel-header-actions">
+              <div className="content-tabs" role="tablist" aria-label="Problem content">
+                <button
+                  className={activeTab === "statement" ? "active" : ""}
+                  type="button"
+                  onClick={() => setActiveTab("statement")}
+                >
+                  {language === "zh" ? "题目描述" : "Statement"}
+                </button>
+                <button
+                  className={activeTab === "solution" ? "active" : ""}
+                  type="button"
+                  onClick={() => setActiveTab("solution")}
+                >
+                  {language === "zh" ? "代码答案" : "Solution"}
+                </button>
+              </div>
               <button
-                className={activeTab === "statement" ? "active" : ""}
+                className="icon-button panel-focus-button"
                 type="button"
-                onClick={() => setActiveTab("statement")}
+                onClick={() => setIsFocusMode((value) => !value)}
+                aria-label={isFocusMode ? (language === "zh" ? "恢复分栏" : "Restore split view") : language === "zh" ? "专注图解" : "Focus animation"}
               >
-                {language === "zh" ? "题目描述" : "Statement"}
-              </button>
-              <button
-                className={activeTab === "solution" ? "active" : ""}
-                type="button"
-                onClick={() => setActiveTab("solution")}
-              >
-                {language === "zh" ? "代码答案" : "Solution"}
+                {isFocusMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
               </button>
             </div>
           </div>

@@ -1,0 +1,57 @@
+.listScene {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.nodeWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.listNode {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-strong);
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.active {
+  border-color: rgba(110, 231, 249, 0.7);
+  background: rgba(110, 231, 249, 0.16);
+  box-shadow: 0 18px 42px rgba(110, 231, 249, 0.12);
+}
+
+.arrow {
+  position: relative;
+  width: 34px;
+  height: 2px;
+  background: var(--muted);
+}
+
+.arrow::after {
+  position: absolute;
+  top: -4px;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid var(--muted);
+  border-right: 2px solid var(--muted);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.reversed::after {
+  right: auto;
+  left: -1px;
+  transform: rotate(-135deg);
+}
+

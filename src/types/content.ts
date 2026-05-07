@@ -51,6 +51,12 @@ export interface AnimationStep {
   target?: number;
   path?: number[];
   results?: number[][];
+  wordPath?: string;
+  wordResults?: string[];
+  digitIndex?: number;
+  activeDigit?: string;
+  activeLetter?: string;
+  letterGroups?: string[];
   used?: boolean[];
   activeNode?: string;
   activeEdge?: string;

@@ -1,0 +1,197 @@
+.scene {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.25fr) minmax(210px, 0.75fr);
+  gap: 16px;
+  width: 100%;
+  min-height: 100%;
+  padding: 18px;
+}
+
+.treePanel,
+.statePanel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.treePanel {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+
+.treePanel svg {
+  width: 100%;
+  max-width: 560px;
+  overflow: visible;
+}
+
+.treePanel path {
+  fill: none;
+  stroke: rgba(123, 139, 166, 0.46);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+}
+
+.treePanel path.visited {
+  stroke: rgba(95, 201, 222, 0.78);
+}
+
+.treePanel path.active {
+  stroke: var(--accent-2);
+  stroke-width: 3.1;
+  filter: drop-shadow(0 0 5px rgba(182, 240, 156, 0.42));
+}
+
+.travelDot {
+  fill: var(--accent-2);
+  filter: drop-shadow(0 0 7px rgba(182, 240, 156, 0.82));
+}
+
+.nodeHalo {
+  fill: rgba(110, 231, 249, 0.16);
+  filter: url("#subset-node-glow");
+  stroke: rgba(110, 231, 249, 0.16);
+  stroke-width: 0.8;
+}
+
+.nodeHalo.active {
+  fill: rgba(182, 240, 156, 0.22);
+  stroke: rgba(182, 240, 156, 0.48);
+}
+
+.nodeCore {
+  fill: rgba(18, 26, 42, 0.96);
+  stroke: rgba(123, 139, 166, 0.45);
+  stroke-width: 1.2;
+}
+
+:global(:root[data-theme="light"]) .nodeCore {
+  fill: rgba(255, 255, 255, 0.96);
+  stroke: rgba(96, 112, 137, 0.26);
+}
+
+.nodeCore.visited {
+  fill: rgba(110, 231, 249, 0.13);
+  stroke: rgba(110, 231, 249, 0.62);
+}
+
+.nodeCore.active {
+  fill: rgba(182, 240, 156, 0.2);
+  stroke: var(--accent-2);
+  stroke-width: 1.7;
+}
+
+.treePanel text {
+  fill: var(--text);
+  font-size: 4.05px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: rgba(15, 23, 42, 0.24);
+  stroke-width: 0.25px;
+  text-anchor: middle;
+}
+
+:global(:root[data-theme="light"]) .treePanel text {
+  stroke: rgba(255, 255, 255, 0.72);
+}
+
+.statePanel {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  padding: 14px;
+}
+
+.actionPill {
+  display: inline-flex;
+  width: fit-content;
+  min-height: 32px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.choose {
+  border-color: rgba(110, 231, 249, 0.45);
+  color: var(--accent);
+}
+
+.record {
+  border-color: rgba(182, 240, 156, 0.45);
+  color: var(--accent-2);
+}
+
+.undo {
+  border-color: rgba(249, 196, 107, 0.45);
+  color: var(--accent-3);
+}
+
+.pathLane,
+.resultBoard {
+  display: grid;
+  gap: 8px;
+}
+
+.pathLane strong,
+.resultBoard strong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.resultBoard em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.pathValues,
+.resultChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  min-height: 38px;
+}
+
+.pathValues span,
+.resultChips span {
+  display: inline-grid;
+  min-height: 30px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.pathValues span {
+  min-width: 34px;
+  color: var(--accent-2);
+}
+
+.pathValues .emptyToken {
+  min-width: 44px;
+  color: var(--muted);
+}
+
+.resultChips {
+  max-height: 158px;
+  overflow: auto;
+}
+
+.resultChips span {
+  min-width: 42px;
+  padding: 0 8px;
+  color: var(--text);
+}
+
