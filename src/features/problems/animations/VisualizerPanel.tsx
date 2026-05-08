@@ -12,7 +12,7 @@ interface VisualizerPanelProps {
 
 export function VisualizerPanel({ problem, language }: VisualizerPanelProps) {
   const steps = animationSteps[problem.animationKey] ?? animationSteps["two-sum"];
-  const { Component: SceneComponent, frameClassName, intervalMs = 1500 } = getAnimationScene(problem.animationKey);
+  const { Component: SceneComponent, frameClassName, hideStepCopy, intervalMs = 1500 } = getAnimationScene(problem.animationKey);
   const [stepIndex, setStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const step = steps[stepIndex];
@@ -59,10 +59,12 @@ export function VisualizerPanel({ problem, language }: VisualizerPanelProps) {
         </motion.div>
       </div>
 
-      <div className="step-copy">
-        <h2>{language === "zh" ? step.titleZh : step.titleEn}</h2>
-        <p>{language === "zh" ? step.noteZh : step.noteEn}</p>
-      </div>
+      {!hideStepCopy ? (
+        <div className="step-copy">
+          <h2>{language === "zh" ? step.titleZh : step.titleEn}</h2>
+          <p>{language === "zh" ? step.noteZh : step.noteEn}</p>
+        </div>
+      ) : null}
 
       <div className="progress-track" aria-label="Animation progress">
         <span style={{ width: `${progress}%` }} />

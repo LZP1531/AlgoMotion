@@ -4,6 +4,7 @@ import { inorderTraversalProblem } from "./binary-tree/inorder-traversal";
 import { subsetsProblem } from "./backtracking/subsets";
 import { permutationsProblem } from "./backtracking/permutations";
 import { letterCombinationsProblem } from "./backtracking/letter-combinations";
+import { palindromePartitioningProblem } from "./backtracking/palindrome-partitioning";
 import { reverseLinkedListProblem } from "./linked-list/reverse-linked-list";
 
 const problemDefinitions = [
@@ -13,6 +14,7 @@ const problemDefinitions = [
   subsetsProblem,
   permutationsProblem,
   letterCombinationsProblem,
+  palindromePartitioningProblem,
 ];
 
 export const problems: Problem[] = problemDefinitions.map(({ animationSteps, ...problem }) => problem);

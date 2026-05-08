@@ -9,7 +9,7 @@
 
 .animationStage,
 .sidePanel,
-.candidatePanel,
+.dpPanel,
 .buildPanel,
 .resultPanel,
 .codePanel,
@@ -81,7 +81,8 @@
   box-shadow: 0 0 12px currentColor;
 }
 
-.actionBadge.choose {
+.actionBadge.choose,
+.actionBadge.search {
   border-color: rgba(110, 231, 249, 0.44);
   color: var(--accent);
   background: rgba(110, 231, 249, 0.08);
@@ -94,7 +95,8 @@
   background: rgba(182, 240, 156, 0.1);
 }
 
-.actionBadge.undo {
+.actionBadge.undo,
+.actionBadge.fill {
   border-color: rgba(251, 146, 60, 0.48);
   color: #fb923c;
   background: rgba(251, 146, 60, 0.08);
@@ -102,12 +104,12 @@
 
 .flowBoard {
   display: grid;
-  grid-template-columns: minmax(160px, 0.52fr) minmax(300px, 1fr) minmax(190px, 0.62fr);
+  grid-template-columns: minmax(200px, 0.66fr) minmax(300px, 1fr) minmax(190px, 0.58fr);
   gap: 12px;
   min-height: 0;
 }
 
-.candidatePanel,
+.dpPanel,
 .buildPanel,
 .resultPanel,
 .codePanel,
@@ -121,7 +123,7 @@
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.11);
 }
 
-:global(:root[data-theme="light"]) .candidatePanel,
+:global(:root[data-theme="light"]) .dpPanel,
 :global(:root[data-theme="light"]) .buildPanel,
 :global(:root[data-theme="light"]) .resultPanel,
 :global(:root[data-theme="light"]) .codePanel,
@@ -132,9 +134,9 @@
     rgba(255, 255, 255, 0.58);
 }
 
-.candidatePanel,
-.resultPanel,
-.buildPanel {
+.dpPanel,
+.buildPanel,
+.resultPanel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   gap: 12px;
@@ -171,84 +173,105 @@
   overflow-wrap: anywhere;
 }
 
-.numberGrid {
+.dpGridWrap {
   display: grid;
   align-content: start;
-  gap: 11px;
+  gap: 16px;
 }
 
-.numberCard {
-  position: relative;
+.stringRail {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  min-height: 84px;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
+  grid-template-columns: repeat(3, minmax(52px, 1fr));
+  gap: 9px;
+}
+
+.charCard {
+  display: grid;
+  min-height: 68px;
+  place-items: center;
+  gap: 4px;
   border: 1px solid rgba(143, 156, 178, 0.26);
   border-radius: 16px;
   background:
-    radial-gradient(circle at 22% 15%, rgba(110, 231, 249, 0.08), transparent 40%),
-    rgba(255, 255, 255, 0.05);
-  overflow: hidden;
+    radial-gradient(circle at 50% 10%, rgba(110, 231, 249, 0.1), transparent 56%),
+    rgba(255, 255, 255, 0.055);
 }
 
-:global(:root[data-theme="light"]) .numberCard {
-  background:
-    radial-gradient(circle at 22% 15%, rgba(15, 159, 181, 0.08), transparent 40%),
-    rgba(255, 255, 255, 0.72);
-}
-
-.numberToken {
-  position: relative;
-  display: grid;
-  width: 52px;
-  height: 52px;
-  place-items: center;
-  border: 1px solid rgba(110, 231, 249, 0.42);
-  border-radius: 18px;
-  background: rgba(110, 231, 249, 0.12);
-  color: var(--accent);
-  font-size: 1.68rem;
-  font-weight: 1000;
-  box-shadow: inset 0 0 18px rgba(110, 231, 249, 0.08);
-}
-
-.numberMeta {
-  display: grid;
-  gap: 4px;
-}
-
-.numberMeta strong {
+.charCard strong {
   color: var(--text);
-  font-size: 0.8rem;
+  font-size: 1.45rem;
+  font-weight: 1000;
+}
+
+.charCard span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.activeCharCard {
+  border-color: rgba(182, 240, 156, 0.58);
+  background: rgba(182, 240, 156, 0.09);
+  box-shadow: 0 0 22px rgba(182, 240, 156, 0.12);
+}
+
+.scanCharCard {
+  border-color: rgba(110, 231, 249, 0.5);
+}
+
+.dpMatrix {
+  display: grid;
+  grid-template-columns: 34px repeat(3, minmax(42px, 1fr));
+  gap: 7px;
+}
+
+.cornerCell,
+.axisCell,
+.dpCell {
+  display: grid;
+  min-height: 38px;
+  place-items: center;
+  border: 1px solid rgba(143, 156, 178, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  font-size: 0.78rem;
   font-weight: 950;
 }
 
-.numberMeta span {
-  color: var(--muted);
-  font-size: 0.72rem;
-  font-weight: 850;
+.cornerCell,
+.axisCell {
+  background: rgba(143, 156, 178, 0.09);
 }
 
-.activeNumberCard {
-  border-color: rgba(182, 240, 156, 0.58);
-  background:
-    radial-gradient(circle at 22% 15%, rgba(182, 240, 156, 0.18), transparent 44%),
-    rgba(182, 240, 156, 0.08);
-  box-shadow:
-    inset 0 0 0 1px rgba(182, 240, 156, 0.08),
-    0 0 24px rgba(182, 240, 156, 0.12);
+.impossibleCell {
+  opacity: 0.28;
+  background: transparent;
 }
 
-.usedNumberCard {
-  border-color: rgba(110, 231, 249, 0.45);
+.trueCell {
+  border-color: rgba(110, 231, 249, 0.48);
+  background: rgba(110, 231, 249, 0.1);
+  color: var(--accent);
+}
+
+.activeCell {
+  border-color: rgba(182, 240, 156, 0.72);
+  background: rgba(182, 240, 156, 0.16);
+  color: var(--accent-2);
+  box-shadow: 0 0 18px rgba(182, 240, 156, 0.18);
+}
+
+.rejectedCell {
+  border-color: rgba(251, 146, 60, 0.68);
+  background: rgba(251, 146, 60, 0.11);
+  color: #fb923c;
 }
 
 .motionLayer {
   position: relative;
   display: grid;
-  grid-template-rows: auto auto minmax(112px, 1fr);
+  grid-template-rows: auto minmax(130px, 1fr);
   gap: 14px;
   min-height: 340px;
   padding: 12px;
@@ -261,65 +284,54 @@
   overflow: hidden;
 }
 
-:global(:root[data-theme="light"]) .motionLayer {
-  background:
-    radial-gradient(circle at 50% 8%, rgba(15, 159, 181, 0.08), transparent 36%),
-    radial-gradient(circle at 50% 92%, rgba(63, 143, 84, 0.08), transparent 35%),
-    rgba(255, 255, 255, 0.58);
+.substringRail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(72px, 1fr));
+  gap: 9px;
 }
 
-.indexRail {
+.substringCard {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.indexStation {
-  display: grid;
-  gap: 4px;
-  min-height: 62px;
+  min-height: 58px;
   place-items: center;
-  border: 1px dashed rgba(143, 156, 178, 0.28);
+  gap: 3px;
+  border: 1px solid rgba(143, 156, 178, 0.24);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.substringCard strong {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 950;
+}
+
+.substringCard span {
   color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 850;
 }
 
-.indexStation span {
-  font-size: 0.68rem;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.indexStation strong {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(143, 156, 178, 0.12);
-  color: currentColor;
-  font-size: 0.95rem;
-  font-weight: 1000;
-}
-
-.activeStation {
-  border-style: solid;
-  border-color: rgba(182, 240, 156, 0.54);
-  color: var(--accent-2);
-  background: rgba(182, 240, 156, 0.08);
-}
-
-.passedStation {
-  border-style: solid;
-  border-color: rgba(110, 231, 249, 0.38);
+.validSubstringCard {
+  border-color: rgba(110, 231, 249, 0.45);
   color: var(--accent);
 }
 
-.candidateShelf,
+.activeSubstringCard {
+  border-color: rgba(182, 240, 156, 0.68);
+  background: rgba(182, 240, 156, 0.12);
+  box-shadow: 0 0 18px rgba(182, 240, 156, 0.16);
+}
+
+.rejectedSubstringCard {
+  border-color: rgba(251, 146, 60, 0.64);
+  background: rgba(251, 146, 60, 0.08);
+}
+
 .pathBuilder {
   display: grid;
   justify-items: center;
+  align-content: center;
   gap: 9px;
 }
 
@@ -327,79 +339,22 @@
   color: var(--muted);
   font-size: 0.75rem;
   font-weight: 900;
-  text-align: center;
 }
 
-.candidateNumbers,
 .pathSlots {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-}
-
-.candidateNumber,
-.doneCandidate {
-  display: grid;
-  min-width: 52px;
-  min-height: 48px;
-  place-items: center;
-  gap: 2px;
-  border: 1px solid rgba(143, 156, 178, 0.26);
-  border-radius: 14px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
-    rgba(255, 255, 255, 0.045);
-  color: var(--text);
-  font-weight: 1000;
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
-}
-
-.candidateNumber strong {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-.candidateNumber small {
-  color: var(--muted);
-  font-size: 0.62rem;
-  font-weight: 900;
-}
-
-.activeCandidateNumber {
-  border-color: rgba(182, 240, 156, 0.72);
-  background:
-    radial-gradient(circle at 50% 10%, rgba(182, 240, 156, 0.28), transparent 58%),
-    rgba(182, 240, 156, 0.12);
-  color: var(--accent-2);
-  box-shadow:
-    0 0 20px rgba(182, 240, 156, 0.16),
-    0 16px 24px rgba(0, 0, 0, 0.1);
-}
-
-.skippedCandidateNumber {
-  border-color: rgba(110, 231, 249, 0.45);
-  color: var(--accent);
-  opacity: 0.72;
-}
-
-.doneCandidate {
-  min-width: 140px;
-  color: var(--accent-2);
-  border-color: rgba(182, 240, 156, 0.48);
-  background: rgba(182, 240, 156, 0.1);
-}
-
-.pathSlots {
-  min-height: 82px;
   align-items: center;
+  gap: 10px;
+  min-height: 92px;
 }
 
 .pathSlot {
   position: relative;
   display: grid;
-  width: 82px;
-  min-height: 76px;
+  width: 88px;
+  min-height: 78px;
   place-items: center;
   gap: 4px;
   padding: 8px;
@@ -422,7 +377,7 @@
 
 .pathSlot span {
   color: var(--muted);
-  font-size: 1.58rem;
+  font-size: 1rem;
   font-weight: 1000;
   line-height: 1;
 }
@@ -463,11 +418,11 @@
   top: 50%;
   z-index: 5;
   display: grid;
-  min-width: 46px;
+  min-width: 58px;
   height: 42px;
   place-items: center;
   border-radius: 14px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 1000;
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -475,41 +430,21 @@
 
 .flyingChoose {
   border: 1px solid rgba(182, 240, 156, 0.72);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(182, 240, 156, 0.36), transparent 60%),
-    rgba(30, 41, 59, 0.96);
+  background: rgba(30, 41, 59, 0.96);
   color: var(--accent-2);
-  box-shadow:
-    0 0 24px rgba(182, 240, 156, 0.28),
-    0 18px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 24px rgba(182, 240, 156, 0.28);
 }
 
 .flyingRecord {
-  min-width: 86px;
+  min-width: 118px;
   border: 1px solid rgba(110, 231, 249, 0.68);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(110, 231, 249, 0.32), transparent 60%),
-    rgba(30, 41, 59, 0.96);
+  background: rgba(30, 41, 59, 0.96);
   color: var(--accent);
-  box-shadow:
-    0 0 24px rgba(110, 231, 249, 0.24),
-    0 18px 34px rgba(0, 0, 0, 0.18);
-}
-
-.flyingUndo {
-  border: 1px solid rgba(251, 146, 60, 0.75);
-  background:
-    radial-gradient(circle at 50% 0%, rgba(251, 146, 60, 0.32), transparent 60%),
-    rgba(30, 41, 59, 0.96);
-  color: #fb923c;
-  box-shadow:
-    0 0 24px rgba(251, 146, 60, 0.22),
-    0 18px 34px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 24px rgba(110, 231, 249, 0.24);
 }
 
 :global(:root[data-theme="light"]) .flyingChoose,
-:global(:root[data-theme="light"]) .flyingRecord,
-:global(:root[data-theme="light"]) .flyingUndo {
+:global(:root[data-theme="light"]) .flyingRecord {
   background: rgba(255, 255, 255, 0.96);
 }
 
@@ -531,7 +466,6 @@
 
 .resultGrid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(70px, 1fr));
   align-content: start;
   gap: 8px;
   min-height: 0;
@@ -541,7 +475,7 @@
 
 .resultSlot {
   display: grid;
-  min-height: 42px;
+  min-height: 58px;
   place-items: center;
   border: 1px dashed rgba(143, 156, 178, 0.24);
   border-radius: 12px;
@@ -549,6 +483,7 @@
   color: rgba(143, 156, 178, 0.78);
   font-size: 0.78rem;
   font-weight: 950;
+  text-align: center;
 }
 
 .filledResultSlot {
@@ -662,7 +597,7 @@
 .codeLine code {
   overflow: hidden;
   color: inherit;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -703,7 +638,7 @@
 .stackFrame code {
   overflow: hidden;
   color: var(--text);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -731,7 +666,7 @@
   stroke: rgba(143, 156, 178, 0.34);
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 1.75;
+  stroke-width: 1.85;
 }
 
 .visitedTreeEdge {
@@ -740,31 +675,13 @@
 
 .activeTreeEdge {
   stroke: var(--accent-2);
-  stroke-width: 2.55;
+  stroke-width: 2.7;
   filter: drop-shadow(0 0 5px rgba(182, 240, 156, 0.44));
-}
-
-.undoTreeEdge {
-  stroke: #fb923c;
-  filter: drop-shadow(0 0 5px rgba(251, 146, 60, 0.38));
-}
-
-:global(:root[data-theme="light"]) .treeEdge {
-  stroke: rgba(96, 112, 137, 0.28);
-}
-
-:global(:root[data-theme="light"]) .visitedTreeEdge {
-  stroke: rgba(15, 159, 181, 0.52);
-}
-
-.treeTravelDot {
-  fill: var(--accent-2);
-  filter: drop-shadow(0 0 7px rgba(182, 240, 156, 0.78));
 }
 
 .treeNodeHalo {
   fill: rgba(110, 231, 249, 0.15);
-  filter: url("#permutations-rich-glow");
+  filter: url("#palindrome-partitioning-glow");
   stroke: rgba(110, 231, 249, 0.16);
   stroke-width: 0.7;
 }
@@ -800,16 +717,12 @@
 
 .treePanel text {
   fill: var(--text);
-  font-size: 3.25px;
+  font-size: 4px;
   font-weight: 950;
   paint-order: stroke;
   stroke: rgba(15, 23, 42, 0.18);
   stroke-width: 0.2px;
   text-anchor: middle;
-}
-
-:global(:root[data-theme="light"]) .treePanel text {
-  stroke: rgba(255, 255, 255, 0.75);
 }
 
 @media (max-width: 980px) {

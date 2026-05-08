@@ -1,4 +1,4 @@
-import { ArrowLeft, Check, Clipboard, Code2, FileText, Maximize2, Minimize2, Tag } from "lucide-react";
+import { ArrowLeft, Check, Clipboard, Code2, FileText, Lightbulb, Maximize2, Minimize2, Tag } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
@@ -12,6 +12,8 @@ import { VisualizerPanel } from "./animations/VisualizerPanel";
 interface OutletContext {
   language: Language;
 }
+
+type ContentTab = "statement" | "coreIdea" | "solution";
 
 function extractText(node: ReactNode): string {
   if (typeof node === "string" || typeof node === "number") return String(node);
@@ -87,8 +89,8 @@ function StatementIntro({
 export function ProblemPage() {
   const { language } = useOutletContext<OutletContext>();
   const { slug } = useParams();
-  const [activeTab, setActiveTab] = useState<"statement" | "solution">("statement");
-  const [visualWidth, setVisualWidth] = useState(62);
+  const [activeTab, setActiveTab] = useState<ContentTab>("statement");
+  const [visualWidth, setVisualWidth] = useState(70);
   const [isFocusMode, setIsFocusMode] = useState(false);
   const studyGridRef = useRef<HTMLDivElement>(null);
   const problem = problems.find((item) => item.slug === slug);
@@ -96,7 +98,7 @@ export function ProblemPage() {
   useEffect(() => {
     setActiveTab("statement");
     setIsFocusMode(false);
-    setVisualWidth(62);
+    setVisualWidth(70);
   }, [slug]);
 
   function startResize(event: PointerEvent<HTMLButtonElement>) {
@@ -136,6 +138,26 @@ export function ProblemPage() {
     );
   }
 
+  const activeMarkdown =
+    activeTab === "statement"
+      ? problem.statementMarkdown
+      : activeTab === "coreIdea"
+        ? problem.coreIdeaMarkdown
+        : problem.solutionMarkdown;
+
+  const activePanelLabel =
+    activeTab === "statement"
+      ? language === "zh"
+        ? "题目描述"
+        : "Statement"
+      : activeTab === "coreIdea"
+        ? language === "zh"
+          ? "核心思路"
+          : "Core idea"
+        : language === "zh"
+          ? "代码答案"
+          : "Solution code";
+
   return (
     <section className="problem-page">
       <div
@@ -158,14 +180,8 @@ export function ProblemPage() {
         <article className="markdown-panel">
           <div className="panel-header">
             <span>
-              {activeTab === "statement" ? <FileText size={18} /> : <Code2 size={18} />}
-              {activeTab === "statement"
-                ? language === "zh"
-                  ? "题目描述"
-                  : "Statement"
-                : language === "zh"
-                  ? "代码答案"
-                  : "Solution code"}
+              {activeTab === "statement" ? <FileText size={18} /> : activeTab === "coreIdea" ? <Lightbulb size={18} /> : <Code2 size={18} />}
+              {activePanelLabel}
             </span>
             <div className="panel-header-actions">
               <div className="content-tabs" role="tablist" aria-label="Problem content">
@@ -175,6 +191,13 @@ export function ProblemPage() {
                   onClick={() => setActiveTab("statement")}
                 >
                   {language === "zh" ? "题目描述" : "Statement"}
+                </button>
+                <button
+                  className={activeTab === "coreIdea" ? "active" : ""}
+                  type="button"
+                  onClick={() => setActiveTab("coreIdea")}
+                >
+                  {language === "zh" ? "核心思路" : "Core idea"}
                 </button>
                 <button
                   className={activeTab === "solution" ? "active" : ""}
@@ -205,7 +228,7 @@ export function ProblemPage() {
                 pre: ({ children }) => <CodeBlock language={language}>{children}</CodeBlock>,
               }}
             >
-              {activeTab === "statement" ? problem.statementMarkdown : problem.solutionMarkdown}
+              {activeMarkdown}
             </ReactMarkdown>
           </div>
         </article>

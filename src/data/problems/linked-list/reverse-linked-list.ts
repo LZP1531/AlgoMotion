@@ -3,6 +3,10 @@ import type { ProblemDefinition } from "../../../types/content";
 const statementMarkdown = `给你单链表的头节点 \`head\`，请你反转链表，并返回反转后的链表。
 `;
 
+const coreIdeaMarkdown = `## 核心思路
+
+这部分讲解后续补充。`;
+
 const solutionMarkdown = `## 思路
 
 维护三个指针：\`prev\`、\`current\`、\`next\`。每次把当前节点指向前一个节点，然后整体向后移动。
@@ -45,6 +49,7 @@ export const reverseLinkedListProblem: ProblemDefinition = {
   leetcodeUrl: "https://leetcode.cn/problems/reverse-linked-list/",
   animationKey: "reverse-list",
   statementMarkdown,
+  coreIdeaMarkdown,
   solutionMarkdown,
   animationSteps: [
     {

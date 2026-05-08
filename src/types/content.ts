@@ -34,6 +34,7 @@ export interface Problem {
   leetcodeUrl: string;
   animationKey: string;
   statementMarkdown: string;
+  coreIdeaMarkdown: string;
   solutionMarkdown: string;
 }
 
@@ -53,6 +54,15 @@ export interface AnimationStep {
   results?: number[][];
   wordPath?: string;
   wordResults?: string[];
+  stringPath?: string[];
+  stringResults?: string[][];
+  activeSubstring?: string;
+  activeRange?: [number, number];
+  dpTrueCells?: Array<[number, number]>;
+  dpActiveCell?: [number, number];
+  dpRejectedCell?: [number, number];
+  dpPhase?: "prepare" | "fill" | "search" | "done";
+  scanIndex?: number;
   digitIndex?: number;
   activeDigit?: string;
   activeLetter?: string;

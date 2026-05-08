@@ -3,6 +3,10 @@ import type { ProblemDefinition } from "../../../types/content";
 const statementMarkdown = `给定一个二叉树的根节点 \`root\`，返回它的中序遍历。
 `;
 
+const coreIdeaMarkdown = `## 核心思路
+
+这部分讲解后续补充。`;
+
 const solutionMarkdown = `## 思路
 
 中序遍历的顺序是：左子树、根节点、右子树。递归写法把这个顺序直接表达出来。
@@ -35,6 +39,7 @@ export const inorderTraversalProblem: ProblemDefinition = {
   leetcodeUrl: "https://leetcode.cn/problems/binary-tree-inorder-traversal/",
   animationKey: "inorder-tree",
   statementMarkdown,
+  coreIdeaMarkdown,
   solutionMarkdown,
   animationSteps: [
     {
