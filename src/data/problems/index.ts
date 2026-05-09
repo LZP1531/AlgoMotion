@@ -5,6 +5,7 @@ import { subsetsProblem } from "./backtracking/subsets";
 import { permutationsProblem } from "./backtracking/permutations";
 import { letterCombinationsProblem } from "./backtracking/letter-combinations";
 import { palindromePartitioningProblem } from "./backtracking/palindrome-partitioning";
+import { wordSearchProblem } from "./backtracking/word-search";
 import { reverseLinkedListProblem } from "./linked-list/reverse-linked-list";
 
 const problemDefinitions = [
@@ -15,6 +16,7 @@ const problemDefinitions = [
   permutationsProblem,
   letterCombinationsProblem,
   palindromePartitioningProblem,
+  wordSearchProblem,
 ];
 
 export const problems: Problem[] = problemDefinitions.map(({ animationSteps, ...problem }) => problem);

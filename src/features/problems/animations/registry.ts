@@ -7,6 +7,7 @@ import { PermutationsScene } from "./scenes/permutations/PermutationsScene";
 import { ReverseLinkedListScene } from "./scenes/reverse-linked-list/ReverseLinkedListScene";
 import { SubsetsScene } from "./scenes/subsets/SubsetsScene";
 import { TwoSumScene } from "./scenes/two-sum/TwoSumScene";
+import { WordSearchScene } from "./scenes/word-search/WordSearchScene";
 
 interface AnimationSceneRegistration {
   Component: ComponentType<AnimationSceneProps>;
@@ -43,6 +44,11 @@ const animationSceneRegistry: Record<string, AnimationSceneRegistration> = {
   },
   "palindrome-partitioning": {
     Component: PalindromePartitioningScene,
+    frameClassName: "visual-scene-wide",
+    hideStepCopy: true,
+  },
+  "word-search": {
+    Component: WordSearchScene,
     frameClassName: "visual-scene-wide",
     hideStepCopy: true,
   },

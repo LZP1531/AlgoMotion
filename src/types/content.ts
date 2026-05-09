@@ -62,6 +62,14 @@ export interface AnimationStep {
   dpActiveCell?: [number, number];
   dpRejectedCell?: [number, number];
   dpPhase?: "prepare" | "fill" | "search" | "done";
+  gridPath?: Array<[number, number]>;
+  visitedCells?: Array<[number, number]>;
+  activeCell?: [number, number];
+  rejectedCell?: [number, number];
+  candidateCells?: Array<[number, number]>;
+  wordIndex?: number;
+  activeDirection?: "start" | "down" | "up" | "right" | "left";
+  gridPhase?: "scan" | "match" | "reject" | "backtrack" | "done";
   scanIndex?: number;
   digitIndex?: number;
   activeDigit?: string;
